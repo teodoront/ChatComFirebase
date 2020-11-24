@@ -24,11 +24,11 @@ public class LoginActivity extends AppCompatActivity {
 
         mEditEmail = findViewById(R.id.edit_email);
         mEditPassword = findViewById(R.id.edit_password);
-        mBtnEnter = findViewById(R.id.btn_enter_save);
+        mBtnEnter = findViewById(R.id.btn_enter);
         mTxtAccount = findViewById(R.id.txt_account);
 
         //Evento de clique do botão
-  /*      mBtnEnter.setOnClickListener(new View.OnClickListener() {
+        mBtnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mEditEmail.getText().toString();
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("Text", password);
 
             }
-        });*/
+        });
         //Evento de clique do texto account
         mTxtAccount.setOnClickListener(new View.OnClickListener() {
             @Override
