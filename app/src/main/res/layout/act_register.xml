@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".RegisterActivity">
+
+    <Button
+        android:id="@+id/btn_selected_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_button_img_rounded"
+        android:text="@string/foto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_photo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_selected_photo"
+        app:layout_constraintEnd_toEndOf="@+id/btn_selected_photo"
+        app:layout_constraintStart_toStartOf="@+id/btn_selected_photo"
+        app:layout_constraintTop_toTopOf="@+id/btn_selected_photo" />
+
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_edittext_rounded"
+        android:hint="@string/nome"
+        android:inputType="textCapWords"
+        android:paddingLeft="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_selected_photo" />
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_edittext_rounded"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/edit_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_username" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_edittext_rounded"
+        android:ems="10"
+        android:hint="@string/senha"
+        android:inputType="textPassword"
+        android:paddingLeft="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/edit_email"
+        app:layout_constraintStart_toStartOf="@+id/edit_email"
+        app:layout_constraintTop_toBottomOf="@+id/edit_email" />
+
+    <Button
+        android:id="@+id/btn_enter_save"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_button_rounded"
+        android:text="Salvar"
+        app:layout_constraintEnd_toEndOf="@+id/edit_password"
+        app:layout_constraintStart_toStartOf="@+id/edit_password"
+        app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
