@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -104,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
             //Isso é para o cursor voltar no campo email depois de validado
             mEditEmail.requestFocus();
         }
-        //Validando se o email tem no mínimo 6 carecteres
+        //Validando se o senha tem no mínimo 6 carecteres
         if (!validation.isPswValid(password)) {
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Alerta");
@@ -181,6 +184,31 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 //se deu certo, vai imprimir a url publica do firebase no Logcat
                                 Log.i("UrlFirebase", uri.toString());
+
+                                String uid = FirebaseAuth.getInstance().getUid();
+                                String username = mEditUserName.getText().toString();
+                                String profileUrl = uri.toString();
+
+                                User user = new User(uid, username, profileUrl);
+
+                           FirebaseFirestore.getInstance().collection("users")
+                                        .add(user)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                //vai escutar o sucesso
+
+                                                Log.i("Teste", documentReference.getId());
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                //vai escutar a falha
+
+                                                Log.i("Teste", e.getMessage());
+                                            }
+                                        });
                             }
                         });
                     }

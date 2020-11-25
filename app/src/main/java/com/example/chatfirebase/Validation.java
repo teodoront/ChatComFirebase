@@ -6,6 +6,7 @@ import android.util.Patterns;
 //Estou validando se o email está no formato correto
 public class Validation {
 
+
     public boolean isEmptyFields(String name, String email, String password) {
         if (name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {
             return true;
