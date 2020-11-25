@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,17 +66,15 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.i("teste", "funciona");
             }
         });
+
+
+
         mBtnSelectedPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SelectPhoto();
             }
         });
-    }
-
-    private boolean isEmailValid(String email) {
-        boolean validation = (Patterns.EMAIL_ADDRESS.matcher(email).matches());
-        return validation;
 
     }
 
@@ -86,14 +83,19 @@ public class RegisterActivity extends AppCompatActivity {
         String email = mEditEmail.getText().toString();
         String password = mEditPassword.getText().toString();
 
+        Validation validation = new Validation();
+     /*   validation.isEmptyFields(name, email, password);
+        validation.isEmailValid(email);
+        validation.isPswValid(password);*/
+
         //Validando se todos campos estão preenchidos
-        if (name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty()) {
+        if (validation.isEmptyFields(name, email, password)) {
             Log.i("validação de campos", "o idiota tá tentando salvar com algum campo vazio");
             Toast.makeText(this, "Os campos nome, email e senha precisam estar todos preenchidos", Toast.LENGTH_LONG).show();
             return;
         }
         //Validando se o email está no padrão
-        if (!isEmailValid(email)) {
+        if (!validation.isEmailValid(email)) {
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Alerta");
             dlg.setMessage("O e-mail está fora do padrão!!!!");
@@ -103,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
             mEditEmail.requestFocus();
         }
         //Validando se o email tem no mínimo 6 carecteres
-        if (password.length() < 6) {
+        if (!validation.isPswValid(password)) {
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("Alerta");
             dlg.setMessage("A quantidade mínima é 6 caracteres para senha!!!");
@@ -116,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(/**implementar um objeto anonimo**/new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.i("teste", task.getResult().getUser().getUid());
 
                             saveUserInFirebase();
@@ -164,8 +166,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     //O ideal era esses metodos serem tratados em outras classes, não tratar regras de negócio na activity Depois refatorar.
 
-    private void saveUserInFirebase(){
-            //Vai gerar uma hash aleatória p termos o nome do arquivo de forma unica
+    private void saveUserInFirebase() {
+        //Vai gerar uma hash aleatória p termos o nome do arquivo de forma unica
         String filename = UUID.randomUUID().toString();
         final StorageReference ref = FirebaseStorage.getInstance().getReference("/images" + filename);
         ref.putFile(mSelectedUri)
